@@ -32,7 +32,7 @@ class ItCreatesLinksTest extends TestCase
             'url' => 'NOT A VALID LINK'
         ]));
 
-        $response->assertStatus(400);
+        $response->assertStatus(422);
     }
 
     /** @test */
@@ -44,7 +44,7 @@ class ItCreatesLinksTest extends TestCase
             'url' => ''
         ]));
 
-        $response->assertStatus(400);
+        $response->assertStatus(422);
     }
 
     /** @test */
@@ -56,7 +56,7 @@ class ItCreatesLinksTest extends TestCase
             'description' => 123
         ]));
 
-        $response->assertStatus(400);
+        $response->assertStatus(422);
     }
 
     /** @test */
@@ -68,6 +68,6 @@ class ItCreatesLinksTest extends TestCase
             'description' => ''
         ]));
 
-        $response->assertStatus(400);
+        $response->assertStatus(422);
     }
 }

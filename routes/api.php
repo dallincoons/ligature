@@ -19,4 +19,6 @@ Route::group([
 
     Route::resource('links', 'LinkController');
 
+    Route::resource('url-check', 'UrlCheckController');
+
 });
