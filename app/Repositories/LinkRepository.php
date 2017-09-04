@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Link;
+use App\Validators\LinkValidator;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 class LinkRepository extends BaseRepository
@@ -13,5 +14,10 @@ class LinkRepository extends BaseRepository
     public function model()
     {
         return Link::class;
+    }
+
+    public function validator()
+    {
+        return LinkValidator::class;
     }
 }
