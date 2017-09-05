@@ -4,11 +4,14 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>Laravel</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+        <!-- CSS -->
+        <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
     </head>
     <body>
@@ -16,7 +19,21 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        <nav class="navbar">
+                            <div class="container">
+                                <router-link class="navbar-item" to="/links">Links</router-link>
+                                <a href="{{ route('logout') }}"
+                                   class="navbar-item navbar-end"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    Logout
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+                            </div>
+                        </nav>
                     @else
                         <a href="{{ route('login') }}">Login</a>
                         <a href="{{ route('register') }}">Register</a>
@@ -24,9 +41,7 @@
                 </div>
             @endif
 
-            <router-link to="/test">Testes</router-link>
-
-            <div class="content">
+            <div class="content container">
 
                 <router-view></router-view>
             </div>

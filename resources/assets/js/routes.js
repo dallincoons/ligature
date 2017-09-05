@@ -1,11 +1,11 @@
 import VueRouter from 'vue-router';
 
-import Example from './components/Example.vue';
+import Links from './components/Links.vue';
 
 let routes = [
     {
-        'path' : '/test',
-        'component' : Example
+        'path' : '/links',
+        'component' : Links
     },
 ];
 
