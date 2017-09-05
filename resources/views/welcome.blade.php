@@ -21,6 +21,7 @@
                     @auth
                         <nav class="navbar">
                             <div class="container">
+
                                 <router-link class="navbar-item" to="/links">Links</router-link>
                                 <a href="{{ route('logout') }}"
                                    class="navbar-item navbar-end"

@@ -14,15 +14,17 @@ abstract class TestCase extends BaseTestCase
 
     private $oldExceptionHandler;
 
+    protected $user;
+
     public function setUp()
     {
         parent::setUp();
 
         $this->disableExceptionHandling();
 
-        $user = factory(User::class)->create();
+        $this->user = factory(User::class)->create();
 
-        $this->be($user);
+        $this->actingAs($this->user, 'api');
     }
 
     protected function disableExceptionHandling()

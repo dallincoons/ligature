@@ -3322,6 +3322,21 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 
 Vue.component('example', __webpack_require__(52));
 
+// Vue.component(
+//     'passport-clients',
+//     require('./components/passport/Clients.vue')
+// );
+//
+// Vue.component(
+//     'passport-authorized-clients',
+//     require('./components/passport/AuthorizedClients.vue')
+// );
+//
+// Vue.component(
+//     'passport-personal-access-tokens',
+//     require('./components/passport/PersonalAccessTokens.vue')
+// );
+
 var app = new Vue({
   el: '#app',
 
@@ -44513,15 +44528,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            url: '',
+            heading: ''
+        };
+    },
+
     methods: {
-        mounted: function mounted() {
-            axios.get('/api/links').then(function (response) {
-                console.log(response);
-            });
-        },
         getHeader: function getHeader() {
-            axios.get('/api/url-check').then(function (response) {
-                console.log(response);
+            var _this = this;
+
+            axios.post('/api/url-check', {
+                url: this.url
+            }).then(function (response) {
+                _this.heading = response.data.heading;
             });
         }
     }
@@ -44545,32 +44566,58 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Url")]), _vm._v(" "), _c('div', {
     staticClass: "control"
   }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.url),
+      expression: "url"
+    }],
     staticClass: "input",
     attrs: {
       "type": "text",
       "placeholder": "Put something here"
     },
+    domProps: {
+      "value": (_vm.url)
+    },
     on: {
-      "keyup": function($event) {
+      "blur": function($event) {
         _vm.getHeader()
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.url = $event.target.value
       }
     }
-  })])]), _vm._v(" "), _vm._m(0)])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
+  })])]), _vm._v(" "), _c('div', {
     staticClass: "field"
   }, [_c('label', {
     staticClass: "label"
   }, [_vm._v("Description")]), _vm._v(" "), _c('div', {
     staticClass: "control"
   }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.heading),
+      expression: "heading"
+    }],
     staticClass: "input",
     attrs: {
       "type": "text",
       "placeholder": "Put stuff here"
+    },
+    domProps: {
+      "value": (_vm.heading)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.heading = $event.target.value
+      }
     }
-  })])])
-}]}
+  })])])])])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

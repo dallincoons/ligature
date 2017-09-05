@@ -6,13 +6,13 @@
                 <div class="field">
                     <label class="label">Url</label>
                     <div class="control">
-                        <input class="input" type="text" placeholder="Put something here" @keyup="getHeader()">
+                        <input class="input" type="text" placeholder="Put something here" @blur="getHeader()" v-model="url">
                     </div>
                 </div>
                 <div class="field">
                     <label class="label">Description</label>
                     <div class="control">
-                        <input class="input" type="text" placeholder="Put stuff here">
+                        <input class="input" type="text" placeholder="Put stuff here" v-model="heading">
                     </div>
                 </div>
             </div>
@@ -22,15 +22,18 @@
 
 <script>
     export default {
+        data(){
+            return {
+                url : '',
+                heading : '',
+            }
+        },
         methods : {
-            mounted(){
-                axios.get('/api/links').then((response) => {
-                    console.log(response);
-                });
-            },
             getHeader(){
-                axios.get('/api/url-check').then((response) => {
-                    console.log(response);
+                axios.post('/api/url-check', {
+                    url : this.url
+                }).then((response) => {
+                    this.heading = response.data.heading;
                 });
             }
         }

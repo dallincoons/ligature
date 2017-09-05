@@ -14,8 +14,12 @@ class LinkController extends Controller
 
     public function __construct(LinkRepository $repository)
     {
-
         $this->repository = $repository;
+    }
+
+    public function index()
+    {
+        //
     }
 
     public function store(Request $request)
