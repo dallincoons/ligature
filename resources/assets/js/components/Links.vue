@@ -6,7 +6,7 @@
                 <div class="field">
                     <label class="label">Url</label>
                     <div class="control">
-                        <input class="input" type="text" placeholder="Put something here" @blur="getHeader()" v-model="url">
+                        <input class="input" type="text" placeholder="Put something here" @keyup="getHeader()" v-model="url">
                     </div>
                 </div>
                 <div class="field">
@@ -28,13 +28,24 @@
                 heading : '',
             }
         },
+        created() {
+            this.getHeader = _.debounce(this.getHeader, 750);
+        },
         methods : {
             getHeader(){
                 axios.post('/api/url-check', {
-                    url : this.url
+                    url : this.prepareUrl()
                 }).then((response) => {
+                    console.log(response);
                     this.heading = response.data.heading;
                 });
+            },
+            prepareUrl(){
+                if(! _.startsWith(this.url, 'http://') || _.startsWith(this.url, 'https://')){
+                    this.url = 'http://' + this.url;
+                }
+
+                return this.url;
             }
         }
     }

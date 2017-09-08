@@ -22,8 +22,8 @@ class ItChecksANewUrlTest extends TestCase
     public function it_gets_first_header_from_remote_url()
     {
         $response = $this->post('api/url-check', [
-            'url' => 'http://pepperrodeo.com'
-        ]);
+            'url' => 'http://pepperrodeo'
+        ], array('HTTP_X-Requested-With' => 'XMLHttpRequest'));
 
         $this->assertEquals(json_decode($response->getContent())->heading, 'Pepper Rodeo');
     }

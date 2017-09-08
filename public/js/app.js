@@ -3281,7 +3281,46 @@ if (inBrowser && window.Vue) {
 
 
 /***/ }),
-/* 9 */,
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var Component = __webpack_require__(39)(
+  /* script */
+  __webpack_require__(40),
+  /* template */
+  __webpack_require__(41),
+  /* styles */
+  null,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "/Users/TheCoons/Valet/Ligature/resources/assets/js/components/Links.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Links.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0c62e46c", Component.options)
+  } else {
+    hotAPI.reload("data-v-0c62e46c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3320,7 +3359,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', __webpack_require__(52));
+Vue.component('example', __webpack_require__(9));
 
 // Vue.component(
 //     'passport-clients',
@@ -44329,7 +44368,7 @@ module.exports = Vue$3;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_router__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Links_vue__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Links_vue__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Links_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_Links_vue__);
 
 
@@ -44442,64 +44481,7 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 40 */,
-/* 41 */,
-/* 42 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var Component = __webpack_require__(39)(
-  /* script */
-  __webpack_require__(53),
-  /* template */
-  __webpack_require__(54),
-  /* styles */
-  null,
-  /* scopeId */
-  null,
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "/Users/TheCoons/Valet/Ligature/resources/assets/js/components/Links.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Links.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0c62e46c", Component.options)
-  } else {
-    hotAPI.reload("data-v-0c62e46c", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 53 */
+/* 40 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -44534,22 +44516,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             heading: ''
         };
     },
+    created: function created() {
+        this.getHeader = _.debounce(this.getHeader, 750);
+    },
 
     methods: {
         getHeader: function getHeader() {
             var _this = this;
 
             axios.post('/api/url-check', {
-                url: this.url
+                url: this.prepareUrl()
             }).then(function (response) {
+                console.log(response);
                 _this.heading = response.data.heading;
             });
+        },
+        prepareUrl: function prepareUrl() {
+            if (!_.startsWith(this.url, 'http://') || _.startsWith(this.url, 'https://')) {
+                this.url = 'http://' + this.url;
+            }
+
+            return this.url;
         }
     }
 });
 
 /***/ }),
-/* 54 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -44581,7 +44574,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": (_vm.url)
     },
     on: {
-      "blur": function($event) {
+      "keyup": function($event) {
         _vm.getHeader()
       },
       "input": function($event) {
@@ -44625,6 +44618,12 @@ if (false) {
      require("vue-hot-reload-api").rerender("data-v-0c62e46c", module.exports)
   }
 }
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);
