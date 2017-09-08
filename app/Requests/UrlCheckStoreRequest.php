@@ -15,7 +15,7 @@ class UrlCheckStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'url' => 'active_url'
+            'url' => 'string'
         ];
     }
 

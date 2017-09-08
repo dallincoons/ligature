@@ -12,9 +12,10 @@
                 <div class="field">
                     <label class="label">Description</label>
                     <div class="control">
-                        <input class="input" type="text" placeholder="Put stuff here" v-model="heading">
+                        <input class="input" type="text" placeholder="Put stuff here" v-model="description">
                     </div>
                 </div>
+                <a class="button is-white" @click="saveLink">Save</a>
             </div>
         </section>
     </div>
@@ -24,29 +25,29 @@
     export default {
         data(){
             return {
-                url : '',
-                heading : '',
+                url         : '',
+                description : '',
             }
         },
         created() {
             this.getHeader = _.debounce(this.getHeader, 750);
         },
         methods : {
-            getHeader(){
+            getHeader() {
                 axios.post('/api/url-check', {
-                    url : this.prepareUrl()
+                    url : this.url
                 }).then((response) => {
                     console.log(response);
-                    this.heading = response.data.heading;
+                    this.description = response.data.heading;
+                    this.url = response.data.url;
                 });
             },
-            prepareUrl(){
-                if(! _.startsWith(this.url, 'http://') || _.startsWith(this.url, 'https://')){
-                    this.url = 'http://' + this.url;
-                }
-
-                return this.url;
-            }
+            saveLink() {
+                axios.post('/api/links', {
+                    'url'         : this.url,
+                    'description' : this.description,
+                });
+            },
         }
     }
 </script>

@@ -9,6 +9,8 @@ class UrlCheckController
 {
     public function store(UrlCheckStoreRequest $request)
     {
-        return response()->json(['heading' => Link::getHeader($request->url)], 200);
+        $preparedUrl = Link::prefixUrl($request->url);
+
+        return response()->json(['heading' => Link::getHeader($preparedUrl), 'url' => $preparedUrl], 200);
     }
 }

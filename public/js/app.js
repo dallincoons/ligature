@@ -44508,12 +44508,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             url: '',
-            heading: ''
+            description: ''
         };
     },
     created: function created() {
@@ -44525,18 +44526,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             axios.post('/api/url-check', {
-                url: this.prepareUrl()
+                url: this.url
             }).then(function (response) {
                 console.log(response);
-                _this.heading = response.data.heading;
+                _this.description = response.data.heading;
+                _this.url = response.data.url;
             });
         },
-        prepareUrl: function prepareUrl() {
-            if (!_.startsWith(this.url, 'http://') || _.startsWith(this.url, 'https://')) {
-                this.url = 'http://' + this.url;
-            }
-
-            return this.url;
+        saveLink: function saveLink() {
+            axios.post('/api/links', {
+                'url': this.url,
+                'description': this.description
+            });
         }
     }
 });
@@ -44592,8 +44593,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.heading),
-      expression: "heading"
+      value: (_vm.description),
+      expression: "description"
     }],
     staticClass: "input",
     attrs: {
@@ -44601,15 +44602,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "placeholder": "Put stuff here"
     },
     domProps: {
-      "value": (_vm.heading)
+      "value": (_vm.description)
     },
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.heading = $event.target.value
+        _vm.description = $event.target.value
       }
     }
-  })])])])])])
+  })])]), _vm._v(" "), _c('a', {
+    staticClass: "button is-white",
+    on: {
+      "click": _vm.saveLink
+    }
+  }, [_vm._v("Save")])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

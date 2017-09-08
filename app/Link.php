@@ -19,4 +19,13 @@ class Link extends Model
             return $node->text();
         }));
     }
+
+    public static function prefixUrl($url)
+    {
+        if (starts_with($url, 'http://') || starts_with($url, 'https://')) {
+            return $url;
+        }
+
+        return 'http://' . $url;
+    }
 }
