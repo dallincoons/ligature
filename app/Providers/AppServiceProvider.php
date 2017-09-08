@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Gateways\Crawler;
+use App\Gateways\GoutteCrawler;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        app()->instance(Crawler::class, new GoutteCrawler);
     }
 }
