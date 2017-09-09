@@ -23,7 +23,8 @@
                 links
             </div>
             <div class="panel-block is-active control has-icons-right" v-for="link in links">
-                <a :href="link.url" target="_blank">{{link.description}}</a><span @click="deleteLink(link.id)" style="pointer-events:auto;" class="icon is-large is-right">X</span>
+                <a :href="link.url" target="_blank">{{link.description}}</a>
+                <span @click="deleteLink(link.id)" style="pointer-events:auto;" class="icon is-large is-right is-clickable">X</span>
             </div>
         </div>
     </div>
@@ -60,6 +61,8 @@
                 axios.post('/api/links', {
                     'url'         : this.url,
                     'description' : this.description,
+                }).then(response => {
+                    this.links = response.data;
                 });
             },
             deleteLink(id) {

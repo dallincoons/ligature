@@ -25,9 +25,9 @@ class LinkController extends Controller
 
     public function store(Request $request)
     {
-        $link = $this->repository->create($request->all());
+        $this->repository->create($request->all());
 
-        return response()->json($link, 201);
+        return response()->json($this->repository->all(), 201);
     }
 
     public function destroy(Link $link)

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Link;
 use Tests\TestCase;
 
 class ItCreatesLinksTest extends TestCase
@@ -17,9 +18,11 @@ class ItCreatesLinksTest extends TestCase
     /** @test */
     public function it_adds_a_new_link()
     {
+        factory(Link::class)->create();
         $response = $response = $this->post('/api/links', $this->validParams());
 
         $response->assertStatus(201);
+        $this->assertCount(2, $response->decodeResponseJson());
         $this->assertDatabaseHas('links', $this->validParams());
     }
 
