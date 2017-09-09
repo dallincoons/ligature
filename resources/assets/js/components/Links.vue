@@ -63,6 +63,8 @@
                     'description' : this.description,
                 }).then(response => {
                     this.links = response.data;
+                    this.url = '';
+                    this.description = '';
                 });
             },
             deleteLink(id) {
