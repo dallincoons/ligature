@@ -12,10 +12,11 @@
 
         <!-- CSS -->
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+        <link href="{{ mix('css/app-less.css') }}" rel="stylesheet">
 
     </head>
     <body>
-        <div class="flex-center position-ref full-height" id="app">
+        <div class="flex-center position-ref is-fullheight hero is-primary is-large" id="app">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
@@ -36,8 +37,14 @@
                             </div>
                         </nav>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
+                            <div class="hero-body" style="flex-direction: column;">
+                                <div class="container has-text-centered">
+                                    <a class="button is-outlined is-white is-fullwidth" href="{{ route('login') }}">Login</a>
+                                </div>
+                                <div class="container has-text-centered">
+                                    <a class="button is-outlined is-white is-fullwidth m-lg-t-5" href="{{ route('register') }}">Register</a>
+                                </div>
+                            </div>
                     @endauth
                 </div>
             @endif
