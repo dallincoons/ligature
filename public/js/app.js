@@ -44509,34 +44509,56 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             url: '',
-            description: ''
+            description: '',
+            links: []
         };
     },
     created: function created() {
+        var _this = this;
+
+        axios.get('/api/links').then(function (response) {
+            _this.links = response.data;
+        });
+
         this.getHeader = _.debounce(this.getHeader, 750);
     },
 
     methods: {
         getHeader: function getHeader() {
-            var _this = this;
+            var _this2 = this;
 
             axios.post('/api/url-check', {
                 url: this.url
             }).then(function (response) {
                 console.log(response);
-                _this.description = response.data.heading;
-                _this.url = response.data.url;
+                _this2.description = response.data.heading;
+                _this2.url = response.data.url;
             });
         },
         saveLink: function saveLink() {
             axios.post('/api/links', {
                 'url': this.url,
                 'description': this.description
+            });
+        },
+        deleteLink: function deleteLink(id) {
+            var _this3 = this;
+
+            axios.delete('/api/links/' + id).then(function (response) {
+                _this3.links = response.data;
             });
         }
     }
@@ -44615,7 +44637,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.saveLink
     }
-  }, [_vm._v("Save")])])])])
+  }, [_vm._v("Save")])])]), _vm._v(" "), _c('div', {
+    staticClass: "panel"
+  }, [_c('div', {
+    staticClass: "panel-heading"
+  }, [_vm._v("\n            links\n        ")]), _vm._v(" "), _vm._l((_vm.links), function(link) {
+    return _c('div', {
+      staticClass: "panel-block is-active control has-icons-right"
+    }, [_c('a', {
+      attrs: {
+        "href": link.url,
+        "target": "_blank"
+      }
+    }, [_vm._v(_vm._s(link.description))]), _c('span', {
+      staticClass: "icon is-large is-right",
+      staticStyle: {
+        "pointer-events": "auto"
+      },
+      on: {
+        "click": function($event) {
+          _vm.deleteLink(link.id)
+        }
+      }
+    }, [_vm._v("X")])])
+  })], 2)])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

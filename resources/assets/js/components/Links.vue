@@ -18,6 +18,14 @@
                 <a class="button is-white" @click="saveLink">Save</a>
             </div>
         </section>
+        <div class="panel">
+            <div class="panel-heading">
+                links
+            </div>
+            <div class="panel-block is-active control has-icons-right" v-for="link in links">
+                <a :href="link.url" target="_blank">{{link.description}}</a><span @click="deleteLink(link.id)" style="pointer-events:auto;" class="icon is-large is-right">X</span>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -27,9 +35,15 @@
             return {
                 url         : '',
                 description : '',
+                links       : [],
             }
         },
         created() {
+
+            axios.get('/api/links').then(response => {
+                this.links = response.data;
+            });
+
             this.getHeader = _.debounce(this.getHeader, 750);
         },
         methods : {
@@ -48,6 +62,11 @@
                     'description' : this.description,
                 });
             },
+            deleteLink(id) {
+                axios.delete('/api/links/' + id).then(response => {
+                    this.links = response.data;
+                });
+            }
         }
     }
 </script>
