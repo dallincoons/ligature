@@ -26,6 +26,10 @@
                 <a :href="link.url" target="_blank">{{link.description}}</a>
                 <span @click="deleteLink(link.id)" style="pointer-events:auto;" class="icon is-large is-right is-clickable">X</span>
             </div>
+            <nav class="pagination" role="navigation" aria-label="pagination">
+                <a class="pagination-previous" @click="previousPage">Previous</a>
+                <a class="pagination-next" @click="nextPage">Next page</a>
+            </nav>
         </div>
     </div>
 </template>
@@ -37,17 +41,34 @@
                 url         : '',
                 description : '',
                 links       : [],
+                nextPageUrl : '',
+                previousPageUrl : ''
             }
         },
         created() {
 
-            axios.get('/api/links').then(response => {
-                this.links = response.data;
-            });
+            this.getLinks('/api/links');
 
             this.getHeader = _.debounce(this.getHeader, 750);
         },
         methods : {
+
+            getLinks(url) {
+                axios.get(url).then(response => {
+                    this.links = response.data.data;
+                    this.nextPageUrl = response.data.next_page_url;
+                    this.previousPageUrl = response.data.prev_page_url;
+                });
+            },
+
+            nextPage() {
+                this.getLinks(this.nextPageUrl);
+            },
+
+            previousPage() {
+                this.getLinks(this.previousPageUrl);
+            },
+
             getHeader() {
                 axios.post('/api/url-check', {
                     url : this.url
@@ -57,6 +78,7 @@
                     this.url = response.data.url;
                 });
             },
+
             saveLink() {
                 axios.post('/api/links', {
                     'url'         : this.url,
@@ -67,6 +89,7 @@
                     this.description = '';
                 });
             },
+
             deleteLink(id) {
                 axios.delete('/api/links/' + id).then(response => {
                     this.links = response.data;

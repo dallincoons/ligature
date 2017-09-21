@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 
 class LinkController extends Controller
 {
+    const PAGINATE_LIMIT = 20;
+
     /**
      * @var LinkRepository
      */
@@ -18,9 +20,9 @@ class LinkController extends Controller
         $this->repository = $repository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json($this->repository->all(), 200);
+        return response()->json($this->repository->paginate(self::PAGINATE_LIMIT), 200);
     }
 
     public function store(Request $request)
