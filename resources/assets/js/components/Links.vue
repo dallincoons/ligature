@@ -1,7 +1,6 @@
 <template>
     <div class="container is-fluid">
         <section class="hero is-primary">
-            <!--<a class="button is-dark is-large modal-button" data-target="modal">Add Link</a>-->
             <div class="hero-body">
                 <div class="field">
                     <label class="label">Url</label>
@@ -12,7 +11,7 @@
                 <div class="field">
                     <label class="label">Description</label>
                     <div class="control">
-                        <input class="input" type="text" placeholder="Put stuff here" v-model="description">
+                        <input class="input" placeholder="Put stuff here" v-model="description">
                     </div>
                 </div>
                 <a class="button is-white" @click="saveLink">Save</a>
@@ -26,9 +25,9 @@
                 <a :href="link.url" target="_blank">{{link.description}}</a>
                 <span @click="deleteLink(link.id)" style="pointer-events:auto;" class="icon is-large is-right is-clickable">X</span>
             </div>
-            <nav class="pagination" role="navigation" aria-label="pagination">
-                <a class="pagination-previous" @click="previousPage">Previous</a>
-                <a class="pagination-next" @click="nextPage">Next page</a>
+            <nav class="pagination" aria-label="pagination">
+                <a class="pagination-previous" @click="previousPage" v-show="previousPageUrl">Previous</a>
+                <a class="pagination-next" @click="nextPage" v-show="nextPageUrl">Next page</a>
             </nav>
         </div>
     </div>
@@ -73,7 +72,6 @@
                 axios.post('/api/url-check', {
                     url : this.url
                 }).then((response) => {
-                    console.log(response);
                     this.description = response.data.heading;
                     this.url = response.data.url;
                 });
