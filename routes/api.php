@@ -21,4 +21,6 @@ Route::group([
 
     Route::resource('url-check', 'UrlCheckController');
 
+    Route::post('/link/{link}/toggle-read', 'LinkToggleReadController@store');
+
 });

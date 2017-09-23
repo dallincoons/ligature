@@ -2,19 +2,20 @@
 
 namespace Tests\Feature;
 
+use App\Http\Controllers\LinkController;
 use App\Link;
 use Tests\TestCase;
 
 class InteractsWithLinksTest extends TestCase
 {
     /** @test */
-    public function it_gets_all_links()
+    public function it_gets_all_links_for_first_page()
     {
-        factory(Link::class, 2)->create();
+        factory(Link::class, LinkController::PAGINATE_LIMIT + 1)->create();
 
         $response = $this->get('/api/links');
 
-        $this->assertCount(2, $response->decodeResponseJson());
+        $this->assertCount(LinkController::PAGINATE_LIMIT, $response->decodeResponseJson()['data']);
     }
 
     /** @test */
@@ -27,5 +28,19 @@ class InteractsWithLinksTest extends TestCase
 
         $this->assertEquals(1, Link::count());
         $this->assertEquals(1, count($response->decodeResponseJson()));
+    }
+
+    /** @test */
+    public function it_marks_link_as_read()
+    {
+        $link = factory(Link::class)->create()->refresh();
+
+        $this->assertSame(0, $link->read);
+
+        $response = $this->post('/api/link/' . $link->getKey() . '/toggle-read');
+
+        $this->assertSame(1, $link->fresh()->read);
+        $response->assertStatus(200);
+        $this->assertEquals(1, $response->decodeResponseJson());
     }
 }

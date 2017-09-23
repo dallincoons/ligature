@@ -8,10 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Link extends Model
 {
     protected $fillable = [
-        'description', 'url'
+        'description', 'url', 'read'
     ];
 
-    public static function getHeader($url)
+    protected $casts = [
+        'read' => 'integer'
+    ];
+
+    /**
+     * @param string $url
+     * @return mixed
+     */
+    public static function getHeader(string $url)
     {
         $crawler = app(Crawler::class);
 
@@ -20,12 +28,26 @@ class Link extends Model
         }));
     }
 
-    public static function prefixUrl($url)
+    /**
+     * @param string $url
+     * @return string
+     */
+    public static function prefixUrl(string $url)
     {
         if (starts_with($url, 'http://') || starts_with($url, 'https://')) {
             return $url;
         }
 
         return 'http://' . $url;
+    }
+
+    /**
+     * @return bool
+     */
+    public function toggleRead()
+    {
+        $this->read = !$this->read;
+
+        return $this->save();
     }
 }

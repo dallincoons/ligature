@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Link;
 use App\Requests\UrlCheckStoreRequest;
 
-class UrlCheckController
+class UrlCheckController extends Controller
 {
     public function store(UrlCheckStoreRequest $request)
     {

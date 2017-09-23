@@ -38,4 +38,16 @@ class LinkTest extends TestCase
 
         $this->assertEquals('http://facebook.com', $url);
     }
+
+    /** @test */
+    public function it_toggles_read_field()
+    {
+        $link = factory(Link::class)->create();
+
+        $this->assertEquals(0, $link->read);
+
+        $link->toggleRead();
+
+        $this->assertEquals(1, $link->fresh()->read);
+    }
 }
