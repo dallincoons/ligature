@@ -4,9 +4,12 @@ namespace App;
 
 use App\Gateways\Crawler;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Link extends Model
 {
+    use Searchable;
+
     protected $fillable = [
         'description', 'url', 'read'
     ];
