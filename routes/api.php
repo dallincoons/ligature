@@ -17,10 +17,12 @@ Route::group([
     'middleware' => 'auth:api',
 ], function () {
 
+    Route::get('links/search', 'LinkSearchController@index');
+
     Route::resource('links', 'LinkController');
 
     Route::resource('url-check', 'UrlCheckController');
 
-    Route::post('/link/{link}/toggle-read', 'LinkToggleReadController@store');
+    Route::post('link/{link}/toggle-read', 'LinkToggleReadController@store');
 
 });

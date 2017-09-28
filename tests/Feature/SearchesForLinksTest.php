@@ -21,8 +21,8 @@ class SearchesForLinksTest extends TestCase
         factory(Link::class)->create(['description' => 'EFGH']);
         factory(Link::class)->create(['description' => 'BACD']);
 
-        $links = Link::search('A')->get();
+        $response = $this->get('/api/links/search?query=A');
 
-        $this->assertCount(1, $links);
+        $this->assertCount(1, $response->decodeResponseJson());
     }
 }
