@@ -50,4 +50,18 @@ class LinkTest extends TestCase
 
         $this->assertEquals(1, $link->fresh()->read);
     }
+
+    /** @test */
+    public function it_detects_duplicate_url()
+    {
+        $link = factory(Link::class)->create();
+
+        $this->assertTrue(Link::duplicateExists($link->url));
+    }
+
+    /** @test */
+    public function it_doesnt_detect_duplicate_url()
+    {
+        $this->assertFalse(Link::duplicateExists('sdfsfsdfsd.com'));
+    }
 }

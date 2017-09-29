@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Gateways\Crawler;
+use App\Repositories\LinkRepository;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 
@@ -42,6 +43,13 @@ class Link extends Model
         }
 
         return 'http://' . $url;
+    }
+
+    public static function duplicateExists($url)
+    {
+        $repository = app(LinkRepository::class);
+
+        return $repository->findByField('url', $url)->count() > 0;
     }
 
     /**

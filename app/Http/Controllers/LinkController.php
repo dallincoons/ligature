@@ -27,6 +27,12 @@ class LinkController extends Controller
 
     public function store(Request $request)
     {
+        if (Link::duplicateExists($request->url)) {
+            return response()->json([
+                'error' => 'Url has already been stored: ' . $request->url
+            ], 422);
+        }
+
         $this->repository->create($request->all());
 
         return response()->json($this->repository->all(), 201);

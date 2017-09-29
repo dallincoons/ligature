@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Link;
+use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 class ItCreatesLinksTest extends TestCase
@@ -72,5 +73,17 @@ class ItCreatesLinksTest extends TestCase
         ]));
 
         $response->assertStatus(422);
+    }
+
+    /** @test */
+    public function it_warns_user_of_duplicate_link()
+    {
+        $link = factory(Link::class)->create();
+        $response = $response = $this->post('/api/links', $this->validParams([
+            'url' => $link->url
+        ]));
+
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $this->assertEquals(1, Link::where('url', $link->url)->count());
     }
 }
