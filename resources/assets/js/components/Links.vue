@@ -19,7 +19,7 @@
         </section>
         <div class="panel">
             <div class="panel-heading">
-                links
+                Links <input @keyup.enter="search($event)" placeholder="search">
             </div>
             <div class="panel-block is-active control has-icons-right" v-for="link in links">
                 <a :href="link.url" target="_blank">{{link.description}}</a>
@@ -90,6 +90,13 @@
 
             deleteLink(id) {
                 axios.delete('/api/links/' + id).then(response => {
+                    this.links = response.data;
+                });
+            },
+
+            search(e) {
+                let input = e.target.value;
+                axios.get('/api/links/search?query=' + input).then(response => {
                     this.links = response.data;
                 });
             }
