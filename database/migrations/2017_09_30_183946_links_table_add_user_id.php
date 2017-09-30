@@ -11,7 +11,7 @@ class LinksTableAddUserId extends Migration
     public function up()
     {
         Schema::table(self::TABLE, function (Blueprint $table) {
-            $table->unsignedInteger('user_id')->default('');
+            $table->unsignedInteger('user_id')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
