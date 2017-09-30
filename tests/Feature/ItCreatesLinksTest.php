@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Link;
+use App\User;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
@@ -25,6 +26,25 @@ class ItCreatesLinksTest extends TestCase
         $response->assertStatus(201);
         $this->assertCount(2, $response->decodeResponseJson());
         $this->assertDatabaseHas('links', $this->validParams());
+    }
+
+    /** @test */
+    public function only_owner_of_link_can_access_it()
+    {
+        $user = \Auth::user();
+        $user2 = factory(User::class)->create();
+
+        factory(Link::class)->create([
+            'user_id' => $user->getKey()
+        ]);
+
+        factory(Link::class)->create([
+            'user_id' => $user2->getKey()
+        ]);
+
+        $response = $this->get('/api/links');
+
+        $this->assertCount(1, $response->decodeResponseJson()['data']);
     }
 
     /** @test */

@@ -4,6 +4,7 @@ namespace App;
 
 use App\Gateways\Crawler;
 use App\Repositories\LinkRepository;
+use App\Scopes\BelongsToAuthUser;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 
@@ -18,6 +19,19 @@ class Link extends Model
     protected $casts = [
         'read' => 'integer'
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new BelongsToAuthUser);
+
+        static::creating(function($model){
+            if(!$model->user_id){
+                $model->user_id = \Auth::user()->getKey();
+            }
+        });
+    }
 
     /**
      * @param string $url
