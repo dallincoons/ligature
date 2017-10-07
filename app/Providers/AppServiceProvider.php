@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Gateways\Crawler;
 use App\Gateways\GoutteCrawler;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
