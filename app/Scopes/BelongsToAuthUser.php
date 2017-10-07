@@ -17,6 +17,8 @@ class BelongsToAuthUser implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $builder->where('user_id', \Auth::user()->getKey());
+        if(!\App::runningInConsole()) {
+            $builder->where('user_id', \Auth::user()->getKey());
+        }
     }
 }
