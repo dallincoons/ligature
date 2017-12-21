@@ -1,29 +1,20 @@
 <template>
-    <div class="container is-fluid">
-        <section class="hero is-primary">
-            <div class="hero-body">
-                <div class="field">
-                    <label class="label">Url</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="Put something here" @keyup="getHeader()" v-model="url">
-                    </div>
-                </div>
-                <div class="field">
-                    <label class="label">Description</label>
-                    <div class="control">
-                        <input class="input" placeholder="Put stuff here" v-model="description">
-                    </div>
-                </div>
-                <a class="button is-white" @click="saveLink">Save</a>
+    <div class="container">
+
+        <div class="side-section">
+            <label>Url</label>
+            <input type="text" placeholder="Copy & Paste Url" @keyup="getHeader()" v-model="url">
+            <label>Description</label>
+            <input class="input" placeholder="What is this link about?" v-model="description">
+            <a @click="saveLink">Save Link</a>
+        </div>
+        <div class="main-section">
+            <div>
+                My Links <input @keyup.enter="search($event)" placeholder="search">
             </div>
-        </section>
-        <div class="panel">
-            <div class="panel-heading">
-                Links <input @keyup.enter="search($event)" placeholder="search">
-            </div>
-            <div class="panel-block is-active control has-icons-right" v-for="link in links">
+            <div v-for="link in links">
                 <a :href="link.url" target="_blank">{{link.description}}</a>
-                <span @click="deleteLink(link.id)" style="pointer-events:auto;" class="icon is-large is-right is-clickable">X</span>
+                <span @click="deleteLink(link.id)">X</span>
             </div>
             <nav class="pagination" aria-label="pagination">
                 <a class="pagination-previous" @click="previousPage" v-show="previousPageUrl">Previous</a>
