@@ -19,9 +19,6 @@
 @import "lists";
 @import "tables";
 
-// Misc
-@import "vue";
-@import "custom-css";
 
 // Utilities
 @import "backgrounds";
@@ -31,4 +28,42 @@
 @import "utilities";
 @import "responsive-utilities";
 @import "animations";
+
+// Misc
+@import "vue";
+@import "custom-css";
+@import "authorize";
+@import "hover";
+
+@brand-light: #fcfcfc;
+@brand-main: #41bee6;
+@brand-dark: #363636;
+
+h1, h2, h3, h4, h5, h6, a, p, ul, li {
+  font-family: 'Lato', sans-serif;
+}
+
+body {
+  background: @brand-light;
+}
+
+.main-button {
+  width: 100%;
+  height: 20%;
+  background: -webkit-linear-gradient(to right, #5B86E5, @brand-main);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #5B86E5, @brand-main); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: @brand-light;
+  margin: 2% 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+  font-weight: 300;
+
+}
+
+.main-button:hover {
+  text-decoration: none;
+  color: @brand-light;
+}
 

@@ -9,15 +9,16 @@
         <title>Brainframe Recall</title>
 
         <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel="stylesheet">
 
         <!-- CSS -->
         <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
 
     </head>
     <body>
-        <div class="flex-center position-ref" id="app">
+        <div id="app">
             @if (Route::has('login'))
-                <div class="top-right links">
+                <div>
                     @auth
                         <nav class="navbar">
                             <div class="container">
@@ -36,14 +37,15 @@
                             </div>
                         </nav>
                     @else
-                        <div class="flex-center position-ref is-fullheight hero is-primary is-large" id="app">
-                            <div class="hero-body" style="flex-direction: column;">
-                                <div class="container has-text-centered">
-                                    <a class="button is-outlined is-white is-fullwidth" href="{{ route('login') }}">Login</a>
-                                </div>
-                                <div class="container has-text-centered">
-                                    <a class="button is-outlined is-white is-fullwidth" href="{{ route('register') }}">Register</a>
-                                </div>
+                        <div id="app" class="container">
+                            <div class="sm-panel">
+                                <h1 class="block-brand">
+                                    <span>BRAIN</span>
+                                    <span>FRAME</span>
+                                    <span>RECALL</span>
+                                </h1>
+                                    <a class="main-button hvr-bounce-to-right" href="{{ route('login') }}">Login</a>
+                                    <a class="main-button hvr-bounce-to-right" href="{{ route('register') }}">Register</a>
                             </div>
                         </div>
                     @endauth
