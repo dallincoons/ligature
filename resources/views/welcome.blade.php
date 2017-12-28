@@ -20,22 +20,7 @@
             @if (Route::has('login'))
                 <div>
                     @auth
-                        <nav class="navbar">
-                            <div class="container">
 
-                                <router-link class="navbar-item" to="/links">Links</router-link>
-                                <a href="{{ route('logout') }}"
-                                   class="navbar-item navbar-end"
-                                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    Logout
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
-                            </div>
-                        </nav>
                     @else
                         <div id="app" class="container">
                             <div class="sm-panel">
@@ -52,7 +37,7 @@
                 </div>
             @endif
 
-            <div class="content container">
+            <div class="main-wrapper">
                 <router-view></router-view>
             </div>
         </div>
