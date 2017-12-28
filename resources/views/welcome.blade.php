@@ -20,7 +20,13 @@
             @if (Route::has('login'))
                 <div>
                     @auth
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
 
+                        <div class="main-wrapper">
+                            <router-view></router-view>
+                        </div>
                     @else
                         <div id="app" class="container">
                             <div class="sm-panel">
@@ -37,9 +43,6 @@
                 </div>
             @endif
 
-            <div class="main-wrapper">
-                <router-view></router-view>
-            </div>
         </div>
 
         <script src="{{ mix('js/app.js') }}"></script>

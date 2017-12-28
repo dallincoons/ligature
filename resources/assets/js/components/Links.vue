@@ -7,7 +7,9 @@
                     <span>FRAME</span>
                     <span>RECALL</span>
                 </h1>
-                <a href="/logout" class="right-link">
+                <a style="cursor: pointer;" class="right-link"
+                   onclick="event.preventDefault();
+                   document.getElementById('logout-form').submit();">
                     Logout
                 </a>
             </div>
