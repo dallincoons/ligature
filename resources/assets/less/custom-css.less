@@ -255,8 +255,14 @@ flex-direction: column;
   margin: 2% 0;
   cursor: pointer;
   transition: color ease-in-out .7s;
+  display: flex;
+  justify-content: space-between;
 }
 
-.pagination:hover {
+.pagination-next:hover {
+  color: @brand-main;
+}
+
+.pagination-previous:hover {
   color: @brand-main;
 }

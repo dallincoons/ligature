@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class LinkController extends Controller
 {
-    const PAGINATE_LIMIT = 20;
+    const PAGINATE_LIMIT = 15;
 
     /**
      * @var LinkRepository
