@@ -5,14 +5,18 @@
                 <h1 class="block-brand">
                     <span>BRAIN</span>
                     <span>FRAME</span>
-                    <span>RECALL</span>
+                    <span class="brand-end">RECALL
+                        <a style="cursor: pointer;" class="right-link"
+                           onclick="event.preventDefault();
+                   document.getElementById('logout-form').submit();">
+                        Logout
+                    </a>
+                    </span>
+
                 </h1>
 
-                <a style="cursor: pointer;" class="right-link"
-                   onclick="event.preventDefault();
-                   document.getElementById('logout-form').submit();">
-                    Logout
-                </a>
+
+
             </div>
 
             <div class="side-card">
