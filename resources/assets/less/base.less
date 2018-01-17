@@ -14,20 +14,9 @@ html {
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     -webkit-font-smoothing: antialiased;
 
-    @media (min-width: @screen-sm) {
+    @media (min-width: 800px) {
       font-size: 16px;
     }
-}
-
-body {
-  font-family: @font-family-base;
-  font-size: @font-size-base;
-  font-weight: @font-weight-normal;
-  line-height: @line-height;
-  color: @text-dark;
-
-  // By default, `<body>` has no `background-color` so we set one as a best practice.
-  background-color: @color-gray-lightest;
 }
 
 textarea {
@@ -36,4 +25,16 @@ textarea {
 
 button, [role=button] {
   cursor: pointer;
+}
+
+h1, h2, h3, h4, h5, h6, a, p, ul, li, label, div {
+  font-family: 'Lato', sans-serif;
+}
+
+body {
+  background: @brand-light;
+}
+
+a {
+  text-decoration: none;
 }

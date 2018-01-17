@@ -37,23 +37,20 @@
             <label for="password" class="main-label">Password</label>
         </div>
 
-        <div>
-            <div>
-                <div class="flex-row">
-                    <label class="fw-300">
-                        <input class="fw-300" type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                    </label>
-                </div>
-            </div>
-        </div>
+
 
         <div>
             <div>
+                        <div class="flex-row">
+                            <label class="fw-300">
+                                <input class="fw-300" type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+                            </label>
+                        </div>
                 <button type="submit" class="main-button pdd-lg hvr-bounce-to-right">
                     Login
                 </button>
 
-                <a href="{{ route('password.request') }}" class="fw-300">
+                <a href="{{ route('password.request') }}" class="fw-300 link">
                     Forgot Your Password?
                 </a>
             </div>

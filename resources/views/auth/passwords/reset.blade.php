@@ -2,6 +2,11 @@
 
 @section('content')
 <div class="container">
+    <h1 class="block-brand">
+        <span>BRAIN</span>
+        <span>FRAME</span>
+        <span>RECALL</span>
+    </h1>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">

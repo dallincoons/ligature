@@ -7,6 +7,7 @@
                     <span>FRAME</span>
                     <span>RECALL</span>
                 </h1>
+
                 <a style="cursor: pointer;" class="right-link"
                    onclick="event.preventDefault();
                    document.getElementById('logout-form').submit();">
@@ -29,7 +30,9 @@
         </div>
         <div class="main-section">
             <div class="sub-heading">
-                <h2>MY LINKS</h2>
+                <div>
+                    <h2>MY LINKS</h2>
+                </div>
                 <div class="search-section">
                     <input @keyup.enter="search($event)" placeholder="Looking for something?" class="sub-input">
                     <span class="span-button hvr-bounce-to-right " @click="search($event)">Search</span>
