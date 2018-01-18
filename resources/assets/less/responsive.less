@@ -1,9 +1,13 @@
-
+@media (min-width: 1500px) {
+  .side-card {
+    width: 70%;
+  }
+}
 
 @media (max-width: 1082px) {
   .main-section {
     width: 65%;
-    margin-left: 4%;
+    margin:0 1em 0 2em;
   }
 }
 
@@ -17,7 +21,9 @@
   }
 
   .side-section {
-    width: 100%;
+    width: 90%;
+    align-content: center;
+    align-items: center;
   }
 
   .main-section {
@@ -26,20 +32,20 @@
   }
 
   .sub-heading {
-    flex-direction: column;
-    margin: 5% 0 0 0;
+    margin: 2em 0 0 0;
   }
 
   .sub-heading h2 {
-    text-align: center;
     margin: 0 0 3% 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .search-section {
     align-self: flex-start;
     justify-content: flex-start;
-    width: 100%;
-    margin: 2% 0;
+    margin: 1em 0;
   }
 
   .sub-input {
@@ -51,6 +57,17 @@
   }
 
   .link-items {
-    margin: 4% 0 0 0;
+    margin: 1.5em 0 0 0;
   }
+}
+@media (max-width: 500px) {
+  .sub-heading {
+    flex-direction: column;
+  }
+
+  .search-section {
+    align-self: center;
+    width: 95%;
+  }
+
 }

@@ -43,13 +43,14 @@
                 </div>
 
             </div>
-            <div v-for="link in links" class="link-section">
-                <div class="link-items">
-                    <div class="link-item">
-                        <a :href="link.url" target="_blank" class="main-link">{{link.description}}</a>
-                        <a :href="link.url" target="_blank" class="truncate sub-link">{{link.url}}</a>
-                    </div>
-                    <span @click="deleteLink(link.id)" class="delete-link">
+            <div class="link-wrapper">
+                <div v-for="link in links" class="link-section">
+                    <div class="link-items">
+                        <div class="link-item">
+                            <a :href="link.url" target="_blank" class="main-link">{{link.description}}</a>
+                            <a :href="link.url" target="_blank" class="truncate sub-link">{{link.url}}</a>
+                        </div>
+                        <span @click="deleteLink(link.id)" class="delete-link">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 59 59" style="enable-background:new 0 0 59 59;" xml:space="preserve" width="18px" height="18px">
 <g>
 	<path d="M29.5,51c0.552,0,1-0.447,1-1V17c0-0.553-0.448-1-1-1s-1,0.447-1,1v33C28.5,50.553,28.948,51,29.5,51z" fill="#363636"/>
@@ -90,10 +91,12 @@
 </svg>
 
                     </span>
+                    </div>
+
+
                 </div>
-
-
             </div>
+
             <nav class="pagination" aria-label="pagination">
                 <a class="pagination-previous" @click="previousPage" v-show="previousPageUrl">Previous</a>
                 <a class="pagination-next" @click="nextPage" v-show="nextPageUrl">Next page</a>
