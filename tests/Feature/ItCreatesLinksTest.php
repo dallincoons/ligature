@@ -44,7 +44,7 @@ class ItCreatesLinksTest extends TestCase
 
         $response = $this->get('/api/links');
 
-        $this->assertCount(1, $response->decodeResponseJson()['data']);
+        $this->assertCount(2, $response->decodeResponseJson()['data']);
     }
 
     /** @test */

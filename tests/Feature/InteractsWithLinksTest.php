@@ -4,10 +4,24 @@ namespace Tests\Feature;
 
 use App\Http\Controllers\LinkController;
 use App\Link;
+use Carbon\Carbon;
 use Tests\TestCase;
 
 class InteractsWithLinksTest extends TestCase
 {
+    /** @test */
+    public function it_gets_links_ordered_by_created_at()
+    {
+        factory(Link::class)->create();
+        $link2 = factory(Link::class)->create([
+            'created_at' => Carbon::now()->addMinute(1)
+        ]);
+
+        $response = $this->get('/api/links');
+
+        $this->assertEquals(array_get($response->decodeResponseJson(), 'data.0.id'), $link2->getKey());
+    }
+
     /** @test */
     public function it_gets_all_links_for_first_page()
     {

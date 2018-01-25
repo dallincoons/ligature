@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Criteria\SortByCreatedAt;
 use App\Link;
 use App\Repositories\LinkRepository;
 use Illuminate\Http\Request;
@@ -15,16 +16,31 @@ class LinkController extends Controller
      */
     private $repository;
 
+    /**
+     * LinkController constructor.
+     * @param LinkRepository $repository
+     */
     public function __construct(LinkRepository $repository)
     {
         $this->repository = $repository;
     }
 
-    public function index(Request $request)
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     */
+    public function index()
     {
+        $this->repository->pushCriteria(new SortByCreatedAt);
+
         return response()->json($this->repository->paginate(self::PAGINATE_LIMIT), 200);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     */
     public function store(Request $request)
     {
         if (Link::duplicateExists($request->url)) {
@@ -38,6 +54,11 @@ class LinkController extends Controller
         return response()->json($this->repository->all(), 201);
     }
 
+    /**
+     * @param Link $link
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
     public function destroy(Link $link)
     {
         $link->delete();
