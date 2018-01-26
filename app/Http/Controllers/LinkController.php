@@ -19,20 +19,19 @@ class LinkController extends Controller
     /**
      * LinkController constructor.
      * @param LinkRepository $repository
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function __construct(LinkRepository $repository)
     {
         $this->repository = $repository;
+        $this->repository->pushCriteria(new SortByCreatedAt);
     }
 
     /**
      * @return \Illuminate\Http\JsonResponse
-     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function index()
     {
-        $this->repository->pushCriteria(new SortByCreatedAt);
-
         return response()->json($this->repository->paginate(self::PAGINATE_LIMIT), 200);
     }
 
