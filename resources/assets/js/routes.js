@@ -4,7 +4,7 @@ import Links from './components/Links.vue';
 
 let routes = [
     {
-        'path' : '/links',
+        'path' : '/',
         'component' : Links
     },
 ];
