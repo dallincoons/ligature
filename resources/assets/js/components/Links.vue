@@ -26,7 +26,7 @@
                 </div>
                 <div class="form-section">
                     <label class="main-label">DESCRIPTION</label>
-                    <input class="main-input" placeholder="What is this link about?" v-model="description">
+                    <input class="main-input" placeholder="What is this link about?" v-model="description" :disabled="!descriptionAllowed">
                 </div>
                 <a class="main-button hvr-bounce-to-right link-button" @click="saveLink">Save Link</a>
             </div>
@@ -113,7 +113,8 @@
                 description : '',
                 links       : [],
                 nextPageUrl : '',
-                previousPageUrl : ''
+                previousPageUrl : '',
+                descriptionAllowed: false
             }
         },
         created() {
@@ -146,6 +147,7 @@
                 }).then((response) => {
                     this.description = response.data.heading;
                     this.url = response.data.url;
+                    this.descriptionAllowed = true;
                 });
             },
 
@@ -157,6 +159,7 @@
                     this.links = response.data;
                     this.url = '';
                     this.description = '';
+                    this.descriptionAllowed = false;
                 });
             },
 
