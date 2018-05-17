@@ -215,6 +215,22 @@ input:focus {
   border-bottom: 1px solid @brand-main;
 }
 
+.clearInput {
+  opacity: 0;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: lighten(@brand-dark, 50%);
+  margin: .75rem .75rem 0 -10px;
+  transition: all .7s ease-in-out;
+  cursor: pointer;
+}
+
+.clearInputVisible {
+  opacity: 1;
+}
+
+
+
 .main-label {
   font-weight: 300;
 }

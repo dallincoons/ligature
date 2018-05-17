@@ -38,7 +38,8 @@
                     <h2>MY LINKS</h2>
                 </div>
                 <div class="search-section">
-                    <input @keyup.enter="search($event)" placeholder="Looking for something?" class="sub-input">
+                    <input @keyup.enter="search($event)" v-model="searchInput" @focus="showClearInput = true" @focusout="showClearInput = false" placeholder="Looking for something?" class="sub-input">
+                    <span @click="clearSearch()" class="clearInput" :class="{clearInputVisible : showClearInput }">x</span>
                     <span class="span-button hvr-bounce-to-right " @click="search($event)">Search</span>
                 </div>
 
@@ -114,7 +115,9 @@
                 links       : [],
                 nextPageUrl : '',
                 previousPageUrl : '',
-                descriptionAllowed: false
+                descriptionAllowed: false,
+                searchInput : '',
+                showClearInput : false
             }
         },
         created() {
@@ -174,7 +177,16 @@
                 axios.get('/api/links/search?query=' + input).then(response => {
                     this.links = response.data;
                 });
+            },
+
+            clearSearch() {
+                let input = '';
+                axios.get('/api/links/search?query=' + input).then(response => {
+                    this.links = response.data;
+                    this.searchInput = '';
+                });
             }
+
         }
     }
 </script>
