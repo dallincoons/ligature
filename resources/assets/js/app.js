@@ -15,6 +15,9 @@ Vue.use(VueRouter);
 
 import routes from './routes';
 
+import Vue2TouchEvents from 'vue2-touch-events'
+
+Vue.use(Vue2TouchEvents);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

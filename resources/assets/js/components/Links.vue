@@ -22,13 +22,14 @@
             <div class="side-card">
                 <div class="form-section">
                     <label class="main-label">URL</label>
-                    <input type="text" placeholder="Copy & Paste Url" @keyup="getHeader()" v-model="url" class="main-input">
+                    <input type="text" placeholder="Copy & Paste Url" @keyup="getHeader()" v-touch:tap="getHeader()" v-model="url" class="main-input">
                 </div>
                 <div class="form-section">
                     <label class="main-label">DESCRIPTION</label>
                     <input class="main-input" placeholder="What is this link about?" v-model="description" :disabled="!descriptionAllowed">
                 </div>
                 <a class="main-button hvr-bounce-to-right link-button" @click="saveLink">Save Link</a>
+                <p class="error-message" :class="{'error' : hasError}">{{errorMessage}}</p>
             </div>
 
         </div>
@@ -117,7 +118,9 @@
                 previousPageUrl : '',
                 descriptionAllowed: false,
                 searchInput : '',
-                showClearInput : false
+                showClearInput : false,
+                hasError : false,
+                errorMessage : ''
             }
         },
         created() {
@@ -163,6 +166,17 @@
                     this.url = '';
                     this.description = '';
                     this.descriptionAllowed = false;
+                })
+                .catch(error => {
+                    let errorMessage = JSON.parse(error.request.responseText);
+                    if(errorMessage.error.includes('Url has already been stored:') ) {
+                        this.errorMessage = 'Oops, looks like you already added that link. Try searching for it.'
+                    }
+                    else {
+                        this.errorMessage = 'Oops, something went wrong. Make sure you have a link & description, refresh the page and try again.'
+                    }
+                    this.hasError = true;
+                    console.log(JSON.parse(error.request.responseText));
                 });
             },
 
