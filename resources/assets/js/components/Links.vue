@@ -22,7 +22,7 @@
             <div class="side-card">
                 <div class="form-section">
                     <label class="main-label">URL</label>
-                    <input type="text" placeholder="Copy & Paste Url" @keyup="getHeader()" v-touch:tap="getHeader()" v-model="url" class="main-input">
+                    <v-touch v-on:tap="descriptionAllowed = true"> <input type="text" placeholder="Copy & Paste Url" @keyup="getHeader()" v-model="url" class="main-input"> </v-touch>
                 </div>
                 <div class="form-section">
                     <label class="main-label">DESCRIPTION</label>
@@ -131,6 +131,10 @@
         },
         methods : {
 
+            test() {
+                alert('hey');
+            },
+
             getLinks(url) {
                 axios.get(url).then(response => {
                     this.links = response.data.data;
@@ -154,6 +158,7 @@
                     this.description = response.data.heading;
                     this.url = response.data.url;
                     this.descriptionAllowed = true;
+                    this.hasError = false;
                 });
             },
 
