@@ -22,7 +22,7 @@
             <div class="side-card">
                 <div class="form-section">
                     <label class="main-label">URL</label>
-                    <v-touch v-on:tap="descriptionAllowed = true"> <input type="text" placeholder="Copy & Paste Url" @keyup="getHeader()" v-model="url" class="main-input"> </v-touch>
+                    <v-touch v-on:tap="getHeader"> <input type="text" placeholder="Copy & Paste Url" @keyup="getHeader()" v-model="url" class="main-input"> </v-touch>
                 </div>
                 <div class="form-section">
                     <label class="main-label">DESCRIPTION</label>
@@ -130,10 +130,6 @@
             this.getHeader = _.debounce(this.getHeader, 750);
         },
         methods : {
-
-            test() {
-                alert('hey');
-            },
 
             getLinks(url) {
                 axios.get(url).then(response => {
