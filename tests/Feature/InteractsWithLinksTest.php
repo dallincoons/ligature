@@ -23,7 +23,7 @@ class InteractsWithLinksTest extends TestCase
         $this->patch('/api/links/' . $link->getKey(), $link->toArray())
             ->assertSuccessful();
 
-        $this->assertEquals('a guide to conforming', $link->refresh()->description);
+        $this->assertEquals('a guide to conforming', $link->first()->description);
     }
 
     /** @test */

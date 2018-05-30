@@ -48,10 +48,16 @@
             <div class="link-wrapper">
                 <div v-for="link in links" class="link-section">
                     <div class="link-items">
-                        <div class="link-item">
+                        <div class="link-item" v-show="!editable[link.id]">
                             <a :href="link.url" target="_blank" class="main-link">{{link.description}}</a>
                             <a :href="link.url" target="_blank" class="truncate sub-link">{{link.url}}</a>
                         </div>
+                        <div class="edit-link" v-show="editable[link.id]">
+                            <input type="text" v-model="link.description"/>
+                            <input type="text" v-model="link.url">
+                            <button v-show="editable" @click="updateLink(link)">Update Link</button>
+                        </div>
+                        <span @click="editable[link.id] = !editable[link.id]">Edit</span>
                         <span @click="deleteLink(link.id)" class="delete-link">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 59 59" style="enable-background:new 0 0 59 59;" xml:space="preserve" width="18px" height="18px">
 <g>
@@ -120,7 +126,8 @@
                 searchInput : '',
                 showClearInput : false,
                 hasError : false,
-                errorMessage : ''
+                errorMessage : '',
+                editable : {}
             }
         },
         created() {
@@ -136,6 +143,10 @@
                     this.links = response.data.data;
                     this.nextPageUrl = response.data.next_page_url;
                     this.previousPageUrl = response.data.prev_page_url;
+
+                    this.links.forEach((link) => {
+                        Vue.set(this.editable, link.id, false);
+                    });
                 });
             },
 
@@ -185,6 +196,12 @@
                 axios.delete('/api/links/' + id).then(response => {
                     this.links = response.data;
                 });
+            },
+
+            updateLink(link) {
+                axios.patch('/api/links/' + link.id, {description: link.description, url: link.url}).then(response => {
+                    this.editable[link.id] = false;
+                })
             },
 
             search(e) {
