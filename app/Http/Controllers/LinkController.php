@@ -54,6 +54,20 @@ class LinkController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @param Link $link
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(Request $request, Link $link)
+    {
+        $link->update($request->only([
+            'description', 'url', 'read'
+        ]));
+
+        return response()->json($link, 201);
+    }
+
+    /**
      * @param Link $link
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception

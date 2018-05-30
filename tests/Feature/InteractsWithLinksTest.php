@@ -10,6 +10,23 @@ use Tests\TestCase;
 class InteractsWithLinksTest extends TestCase
 {
     /** @test */
+    public function it_updates_link()
+    {
+        $link = factory(Link::class)->create([
+            'description' => 'a guide to sticking it to the man'
+        ]);
+
+        $this->assertEquals('a guide to sticking it to the man', $link->first()->description);
+
+        $link->description = 'a guide to conforming';
+
+        $this->patch('/api/links/' . $link->getKey(), $link->toArray())
+            ->assertSuccessful();
+
+        $this->assertEquals('a guide to conforming', $link->refresh()->description);
+    }
+
+    /** @test */
     public function it_gets_links_ordered_by_created_at()
     {
         factory(Link::class)->create();
