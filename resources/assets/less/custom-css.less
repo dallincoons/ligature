@@ -151,22 +151,33 @@
   margin-top: 1.5em;
 }
 
-.delete-link {
+.modify-options {
   position: absolute;
   bottom: 0;
   right: 0;
   cursor: pointer;
+}
+
+.modify-option {
   opacity: .6;
   transition: opacity ease-in-out .7s;
 }
 
-.delete-link:hover {
+.modify-option:hover {
   opacity: 1;
 }
 
 
 .link-item {
   width: 100%;
+}
+
+.edit-button {
+  background: -webkit-linear-gradient(to right, #5B86E5, @brand-main);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #5B86E5, @brand-main); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: @brand-light;
+  padding: .5rem;
+  width: 40%;
 }
 
 .main-button {
@@ -297,4 +308,15 @@ flex-direction: column;
 .error {
   visibility: visible;
   opacity: 1;
+}
+.edit-icon {
+  width: 18px;
+  height: 18px;
+}
+.cls-1{fill:#363636;}
+
+.edit-link {
+  display: grid;
+  grid-gap: .5rem;
+  width: 65%;
 }
