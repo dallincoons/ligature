@@ -178,9 +178,13 @@
             },
 
             deleteLink(id) {
-                axios.delete('/api/links/' + id).then(response => {
-                    this.links = response.data;
-                });
+               let deleteConfirm = window.confirm("Are you sure you want to delete this link?");
+               if(deleteConfirm === true) {
+                   axios.delete('/api/links/' + id).then(response => {
+                       this.links = response.data;
+                   });
+               }
+
             },
 
             updateLink(link) {
