@@ -57,7 +57,9 @@
                             <input type="text" v-model="link.url" class="main-input sub-link" />
                             <button v-show="editable" @click="updateLink(link)" class="edit-button hvr-bounce-to-right">Update Link</button>
                         </div>
-                        <div class="modify-options">
+                        <div class="link-options-wrapper">
+                            <div class="link-options" @click="toggleOptionModual(link.id)">...</div>
+                            <div class="modify-options" v-bind:class="{ visible: optionsVisible[link.id]}">
                             <span class="modify-option" @click="editable[link.id] = !editable[link.id]">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" class="edit-icon">
 	                            <title>pencil</title>
@@ -71,7 +73,7 @@
                                 </g>
                             </svg>
                         </span>
-                            <span class="modify-option" @click="deleteLink(link.id)">
+                                <span class="modify-option" @click="deleteLink(link.id)">
                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 59 59" style="enable-background:new 0 0 59 59;" xml:space="preserve" width="18px" height="18px">
                                 <g>
                                     <path d="M29.5,51c0.552,0,1-0.447,1-1V17c0-0.553-0.448-1-1-1s-1,0.447-1,1v33C28.5,50.553,28.948,51,29.5,51z" fill="#363636"></path>
@@ -82,7 +84,9 @@
                             </svg>
 
                     </span>
+                            </div>
                         </div>
+
 
                     </div>
 
@@ -112,7 +116,8 @@
                 showClearInput : false,
                 hasError : false,
                 errorMessage : '',
-                editable : {}
+                editable : {},
+                optionsVisible : {}
             }
         },
         created() {
@@ -131,6 +136,7 @@
 
                     this.links.forEach((link) => {
                         Vue.set(this.editable, link.id, false);
+                        Vue.set(this.optionsVisible, link.id, false);
                     });
                 });
             },
@@ -206,6 +212,10 @@
                     this.links = response.data;
                     this.searchInput = '';
                 });
+            },
+
+            toggleOptionModual(id) {
+                this.optionsVisible[id] = !this.optionsVisible[id];
             }
 
         }
