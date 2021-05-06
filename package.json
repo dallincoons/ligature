@@ -24,7 +24,7 @@
     "jsdom": "^11.3.0",
     "jsdom-global": "^3.0.2",
     "laravel-mix": "^1.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.21",
     "mocha": "^4.0.1",
     "mocha-webpack": "^0.7.0",
     "vue": "^2.1.10",
